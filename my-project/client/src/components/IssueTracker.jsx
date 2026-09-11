@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Search, Camera, ShieldCheck, ThumbsUp } from 'lucide-react';
+import { apiCall } from '../api';
 
 export default function IssueTracker({ initialTicketId, onUpvote, reports }) {
   const [ticketInput, setTicketInput] = useState(initialTicketId || '');
@@ -7,7 +8,7 @@ export default function IssueTracker({ initialTicketId, onUpvote, reports }) {
 
   const fetchTicket = async (id) => {
     if (!id) return;
-    const res = await fetch(`/api/reports/${id.trim()}`);
+    const res = await apiCall(`/api/reports/${id.trim()}`);
     const json = await res.json();
     if (json.success) setReport(json.data);
   };

@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { BarChart3, TrendingUp, AlertTriangle, Users } from 'lucide-react';
+import { apiCall } from '../api';
 
 export default function AnalyticsView() {
   const [stats, setStats] = useState(null);
 
   useEffect(() => {
-    fetch('/api/analytics/stats').then(r => r.json()).then(j => j.success && setStats(j.data));
+    apiCall('/api/analytics/stats').then(r => r.json()).then(j => j.success && setStats(j.data));
   }, []);
 
   if (!stats) return <div className="text-center py-20 text-slate-400">Loading civic analytics...</div>;

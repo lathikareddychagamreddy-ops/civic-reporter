@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Building2, Clock, CheckCircle2, Download, Camera } from 'lucide-react';
+import { apiCall } from '../api';
 
 export default function MunicipalDashboard({ reports, onRefresh, onStatusUpdated }) {
   const [selectedReport, setSelectedReport] = useState(null);
@@ -14,7 +15,7 @@ export default function MunicipalDashboard({ reports, onRefresh, onStatusUpdated
     data.append('officer_notes', notes);
     if (resPhoto) data.append('resolution_photo', resPhoto);
 
-    await fetch(`/api/reports/${selectedReport.id}/status`, { method: 'PATCH', body: data });
+    await apiCall(`/api/reports/${selectedReport.id}/status`, { method: 'PATCH', body: data });
     setSelectedReport(null);
     onStatusUpdated();
   };

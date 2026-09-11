@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { X, Camera, MapPin, Navigation, Lightbulb, Trash2, Droplets, CheckCircle2, Copy } from 'lucide-react';
+import { apiCall } from '../api';
 
 export default function ReportModal({ isOpen, onClose, onReportCreated }) {
   const [formData, setFormData] = useState({
@@ -30,7 +31,7 @@ export default function ReportModal({ isOpen, onClose, onReportCreated }) {
     if (selectedFile) data.append('photo', selectedFile);
 
     try {
-      const res = await fetch('/api/reports', { method: 'POST', body: data });
+      const res = await apiCall('/api/reports', { method: 'POST', body: data });
       if (!res.ok) {
         throw new Error(`Server error: ${res.status} ${res.statusText}`);
       }
