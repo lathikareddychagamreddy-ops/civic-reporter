@@ -1,10 +1,12 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: './', // Ensures styles and icons load on GitHub Pages
+
+  // GitHub Pages repository path
+  base: '/civic-reporter/',
+
   server: {
     proxy: {
       '/api': {
@@ -12,6 +14,7 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, '/api')
       },
+
       '/uploads': {
         target: 'http://localhost:5000',
         changeOrigin: true
