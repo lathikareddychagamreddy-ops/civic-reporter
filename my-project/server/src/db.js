@@ -1,7 +1,16 @@
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
+const fs = require('fs');
 
-const dbPath = path.resolve(__dirname, '../civic_pulse.db');
+// Use environment variable for database path, or default to project directory
+const dbPath = process.env.DATABASE_PATH || path.resolve(__dirname, '../civic_pulse.db');
+
+// Ensure directory exists
+const dbDir = path.dirname(dbPath);
+if (!fs.existsSync(dbDir)) {
+  fs.mkdirSync(dbDir, { recursive: true });
+}
+
 const db = new sqlite3.Database(dbPath);
 
 const query = (sql, params = []) => new Promise((res, rej) => {

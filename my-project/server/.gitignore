@@ -1,0 +1,7 @@
+node_modules/
+civic_pulse.db
+.env.local
+.env.production.local
+uploads/
+.DS_Store
+*.log
