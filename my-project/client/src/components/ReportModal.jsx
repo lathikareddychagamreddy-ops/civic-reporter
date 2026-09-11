@@ -20,23 +20,36 @@ export default function ReportModal({ isOpen, onClose, onReportCreated }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!selectedFile) {
+      alert('Please upload a photo proof');
+      return;
+    }
+    
     const data = new FormData();
     Object.keys(formData).forEach(k => data.append(k, formData[k]));
     if (selectedFile) data.append('photo', selectedFile);
 
-    const res = await fetch('/api/reports', { method: 'POST', body: data });
-    const json = await res.json();
-    if (json.success) {
-      setCreatedTicket(json.data);
-      onReportCreated();
-    } else {
-      alert(json.error);
+    try {
+      const res = await fetch('/api/reports', { method: 'POST', body: data });
+      if (!res.ok) {
+        throw new Error(`Server error: ${res.status} ${res.statusText}`);
+      }
+      const json = await res.json();
+      if (json.success) {
+        setCreatedTicket(json.data);
+        onReportCreated();
+      } else {
+        alert(`Error: ${json.error || 'Failed to create report'}`);
+      }
+    } catch (err) {
+      alert(`Error submitting report: ${err.message}`);
+      console.error('Report submission error:', err);
     }
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs">
-      <div className="w-full max-w-lg bg-white rounded-2xl shadow-2xl p-5 overflow-hidden">
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs">
+      <div className="w-full max-w-lg bg-white rounded-2xl shadow-2xl p-5 overflow-y-auto max-h-[90vh]">
         <div className="flex justify-between items-center border-b pb-3 mb-4">
           <h3 className="font-bold text-slate-900 text-base flex items-center gap-1.5"><Camera className="w-4 h-4 text-emerald-600" /> Report Civic Issue</h3>
           <button onClick={onClose} className="text-slate-400 hover:text-slate-700">✕</button>

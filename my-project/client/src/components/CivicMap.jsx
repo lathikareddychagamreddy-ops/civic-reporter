@@ -56,8 +56,8 @@ export default function CivicMap({ reports, selectedCategory, setSelectedCategor
   };
 
   return (
-    <div className="flex flex-col lg:flex-row h-[calc(100vh-4rem)]">
-      <div className="w-full lg:w-[380px] bg-white border-r border-slate-200 flex flex-col h-[40vh] lg:h-full z-10">
+    <div className="flex flex-col lg:flex-row h-[calc(100vh-4rem)] relative z-0">
+      <div className="w-full lg:w-[380px] bg-white border-r border-slate-200 flex flex-col h-[40vh] lg:h-full z-10 relative">
         <div className="p-3 border-b space-y-2 bg-slate-50">
           <div className="flex items-center justify-between">
             <h2 className="text-sm font-bold text-slate-800 flex items-center gap-1.5"><Filter className="w-4 h-4" /> Reports ({reports.length})</h2>
@@ -90,8 +90,8 @@ export default function CivicMap({ reports, selectedCategory, setSelectedCategor
         </div>
       </div>
 
-      <div className="flex-1 relative">
-        <div ref={mapContainerRef} className="w-full h-full" />
+      <div className="flex-1 relative z-0">
+        <div ref={mapContainerRef} className="w-full h-full z-0" />
         {activeReport && (
           <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 w-[90%] max-w-md bg-white rounded-xl shadow-xl p-3 border flex gap-3">
             <img src={activeReport.photo_url} alt="Proof" className="w-20 h-20 rounded-lg object-cover border" />
