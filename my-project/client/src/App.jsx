@@ -51,7 +51,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-100 flex flex-col font-sans">
+    <div className="h-screen flex flex-col bg-slate-100 font-sans">
       <Navbar
         activeTab={activeTab}
         setActiveTab={setActiveTab}
@@ -64,7 +64,7 @@ export default function App() {
         reportsCount={reports.filter(r => r.status !== 'RESOLVED').length}
       />
 
-      <main className="flex-1">
+      <main className="flex-1 overflow-hidden">
         {activeTab === 'map' && (
           <CivicMap
             reports={reports}

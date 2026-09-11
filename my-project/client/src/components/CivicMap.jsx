@@ -56,7 +56,7 @@ export default function CivicMap({ reports, selectedCategory, setSelectedCategor
   };
 
   return (
-    <div className="flex flex-col lg:flex-row h-[calc(100vh-4rem)] relative z-0">
+    <div className="flex flex-col lg:flex-row w-full h-full relative z-0">
       <div className="w-full lg:w-[380px] bg-white border-r border-slate-200 flex flex-col h-[40vh] lg:h-full z-10 relative">
         <div className="p-3 border-b space-y-2 bg-slate-50">
           <div className="flex items-center justify-between">
